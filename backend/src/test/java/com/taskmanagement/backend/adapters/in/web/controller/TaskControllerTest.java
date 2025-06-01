@@ -2,6 +2,7 @@ package com.taskmanagement.backend.adapters.in.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.taskmanagement.backend.adapters.in.web.dto.TaskDTO;
+import com.taskmanagement.backend.adapters.out.persistence.repository.JpaUserRepository;
 import com.taskmanagement.backend.application.service.TaskService;
 import com.taskmanagement.backend.application.service.UserService;
 import com.taskmanagement.backend.domain.model.Task;
@@ -41,6 +42,9 @@ class TaskControllerTest {
 
     @MockitoBean
     private CustomUserDetailsService customUserDetailsService;
+
+    @MockitoBean
+    private JpaUserRepository jpaUserRepository;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 

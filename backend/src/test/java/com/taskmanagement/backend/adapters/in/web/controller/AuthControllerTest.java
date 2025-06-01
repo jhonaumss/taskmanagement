@@ -2,6 +2,7 @@ package com.taskmanagement.backend.adapters.in.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.taskmanagement.backend.adapters.in.web.dto.AuthRequest;
+import com.taskmanagement.backend.adapters.out.persistence.repository.JpaUserRepository;
 import com.taskmanagement.backend.application.service.UserService;
 import com.taskmanagement.backend.domain.model.User;
 import com.taskmanagement.backend.security.CustomUserDetailsService;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,6 +47,9 @@ class AuthControllerTest {
     private JwtUtil jwtUtil;
     @MockitoBean
     private CustomUserDetailsService customUserDetailsService;
+
+    @MockitoBean
+    private JpaUserRepository jpaUserRepository;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
