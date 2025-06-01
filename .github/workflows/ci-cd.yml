@@ -22,10 +22,34 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+
       - name: Make mvnw executable
         run: chmod +x mvnw
-      - name: Build & Test
-        run: ./mvnw clean verify -DskipTests
+
+      - name: Build without tests
+        run: ./mvnw clean package -DskipTests
+
+  test-backend:
+    name: Test Backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Make mvnw executable
+        run: chmod +x mvnw
+
+      - name: Run tests only
+        run: ./mvnw test
 
   build-frontend:
     name: Build Frontend
