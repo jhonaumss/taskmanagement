@@ -22,7 +22,8 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-
+      - name: Make mvnw executable
+        run: chmod +x mvnw
       - name: Build & Test
         run: ./mvnw clean verify
 
