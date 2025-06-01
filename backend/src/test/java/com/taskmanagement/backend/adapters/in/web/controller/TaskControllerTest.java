@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @WebMvcTest(TaskController.class)
-@AutoConfigureMockMvc(addFilters = false) // 👈 Agrega esta línea
+@AutoConfigureMockMvc(addFilters = false)
 @Import(JwtUtil.class)
 class TaskControllerTest {
 
