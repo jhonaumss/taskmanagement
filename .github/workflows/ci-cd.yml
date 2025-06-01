@@ -49,7 +49,7 @@ jobs:
         run: chmod +x mvnw
 
       - name: Run tests only
-        run: ./mvnw test
+        run: ./mvnw test -Dspring.profiles.active=test-no-db
 
   build-frontend:
     name: Build Frontend
