@@ -102,3 +102,20 @@ jobs:
     steps:
       - name: Trigger redeploy on Render
         run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+  
+  deploy-frontend:
+    name: Deploy Frontend to Vercel
+    needs: [build-frontend]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Deploy to Vercel
+        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
