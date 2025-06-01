@@ -75,25 +75,6 @@ jobs:
       - name: Build
         run: npm run build
   
-  deploy-backend:
-    name: Deploy Backend to Render
-    needs: [build-backend, test-backend]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Render
-        run: |
-          curl -X POST https://api.render.com/deploy/srv-<your-backend-service-id>?key=${{ secrets.RENDER_API_KEY }}
-
-  deploy-frontend:
-    name: Deploy Frontend to Vercel
-    needs: [build-frontend]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Vercel
-        run: |
-          npx vercel --token ${{ secrets.VERCEL_TOKEN }} --prod
-        working-directory: frontend
-  
   push-backend-image:
     name: Push Backend Docker Image
     needs: [build-backend, test-backend]
@@ -113,3 +94,11 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/backend:latest
+  
+  deploy-backend:
+    name: Deploy Backend to Render
+    needs: [push-backend-image]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger redeploy on Render
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
