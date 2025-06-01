@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  build-and-test-backend:
-    name: Build & Test Spring Boot
+  build-backend:
+    name: Build Backend
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -28,7 +28,7 @@ jobs:
         run: ./mvnw clean verify -DskipTests
 
   build-frontend:
-    name: Build React Frontend
+    name: Build Frontend
     runs-on: ubuntu-latest
     defaults:
       run:
