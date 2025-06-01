@@ -2,7 +2,6 @@ package com.taskmanagement.backend.security;
 
 import com.taskmanagement.backend.application.service.UserService;
 import com.taskmanagement.backend.domain.model.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.*;

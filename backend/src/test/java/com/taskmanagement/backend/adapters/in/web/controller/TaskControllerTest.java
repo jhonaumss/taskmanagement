@@ -6,9 +6,13 @@ import com.taskmanagement.backend.application.service.TaskService;
 import com.taskmanagement.backend.application.service.UserService;
 import com.taskmanagement.backend.domain.model.Task;
 import com.taskmanagement.backend.domain.model.User;
+import com.taskmanagement.backend.security.CustomUserDetailsService;
+import com.taskmanagement.backend.security.JwtUtil;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -20,7 +24,10 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
 @WebMvcTest(TaskController.class)
+@AutoConfigureMockMvc(addFilters = false) // 👈 Agrega esta línea
+@Import(JwtUtil.class)
 class TaskControllerTest {
 
     @Autowired
@@ -32,6 +39,9 @@ class TaskControllerTest {
     @MockitoBean
     private UserService userService;
 
+    @MockitoBean
+    private CustomUserDetailsService customUserDetailsService;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
@@ -41,8 +51,10 @@ class TaskControllerTest {
         TaskDTO dto = new TaskDTO(null, "Title", "Desc", false, userId);
         Task saved = new Task(UUID.randomUUID(), "Title", "Desc", false, userId);
 
+        //when(jwtUtil.validate(any())).thenReturn(true);
         when(userService.findByUsername("john")).thenReturn(Optional.of(new User(userId, "john", "pass", "USER")));
         when(taskService.create(any())).thenReturn(saved);
+
 
         mockMvc.perform(post("/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
