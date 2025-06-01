@@ -1,33 +1,27 @@
-# Global ignores
-.DS_Store
-*.log
-.env
-.env.*
-
-# Ignore IDE/editor files
-.idea/
-.vscode/
-*.iml
-
 # Node and React
 /frontend/node_modules/
 frontend/build/
-frontend/.next/
-frontend/dist/
-frontend/.turbo/
 
 # Spring Boot
 /backend/target/
-backend/.mvn/
 backend/.classpath
 backend/.project
 backend/.settings
 backend/hs_err_pid*
 backend/.env
 
-# Maven
-*.mvn
-**/target/
+# Keep Maven Wrapper
+!/backend/.mvn/
+!/backend/.mvn/wrapper/maven-wrapper.jar
+!/backend/.mvn/wrapper/maven-wrapper.properties
+!/backend/mvnw
+!/backend/mvnw.cmd
 
-# OS files
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
 Thumbs.db
